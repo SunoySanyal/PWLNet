@@ -7,7 +7,7 @@ Pyomo/PWL backends, and validates the resulting decisions on Williams-Otto and
 hydroformylation benchmark processes.
 
 <p align="center">
-  <img src="images/workflow_banner.svg" alt="PWLNet workflow banner" width="100%">
+  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/workflow_banner.svg" alt="PWLNet workflow banner" width="100%">
 </p>
 
 ## Why PWLNet?
@@ -36,7 +36,7 @@ Most ML pipelines stop at prediction. **PWLNet goes one step further:** it turns
 ## What It Shows
 
 <p align="center">
-  <img src="images/03_williams_otto_tanh_pwl_milp_img08_cell26.png" alt="Williams-Otto constrained optimization landscape." width="720">
+  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/03_williams_otto_tanh_pwl_milp_img08_cell26.png" alt="Williams-Otto constrained optimization landscape." width="720">
 </p>
 
 <p align="center">
@@ -46,7 +46,7 @@ Most ML pipelines stop at prediction. **PWLNet goes one step further:** it turns
 ## Optimization-Aware Compression
 
 <p align="center">
-  <img src="images/05_williams_otto_relu_pruning_img01_cell14.png" alt="Before and after network pruning." width="720">
+  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/05_williams_otto_relu_pruning_img01_cell14.png" alt="Before and after network pruning." width="720">
 </p>
 
 <p align="center">
@@ -54,7 +54,7 @@ Most ML pipelines stop at prediction. **PWLNet goes one step further:** it turns
 </p>
 
 <p align="center">
-  <img src="images/03_williams_otto_tanh_pwl_milp_img01_cell3.png" alt="Piecewise-linear approximation of tanh activation function" width="720">
+  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/03_williams_otto_tanh_pwl_milp_img01_cell3.png" alt="Piecewise-linear approximation of tanh activation function" width="720">
 </p>
 
 <p align="center">
@@ -169,8 +169,25 @@ PWLNet/
 
 ## Installation
 
-Install the source checkout with the extras that match the workflow you want to
-run.
+PWLNet requires Python 3.10 or newer. Once published on PyPI, install the base
+package or add the extras that match your workflow:
+
+```bash
+pip install pwlnet
+pip install "pwlnet[highs,training]"
+```
+
+Useful extras:
+
+```bash
+pip install "pwlnet[highs]"          # Pyomo/OMLT plus open-source HiGHS
+pip install "pwlnet[gurobi]"         # Pyomo/OMLT plus optional licensed Gurobi
+pip install "pwlnet[mosek]"          # MOSEK Python API for conic/MIQP/MISOCP paths
+pip install "pwlnet[training,dev]"   # Keras/TensorFlow, pytest, notebooks
+pip install "pwlnet[parallel]"       # Ray support for parallel SOSX training
+```
+
+To install from source, including before the first PyPI release:
 
 ```bash
 git clone https://github.com/SunoySanyal/PWLNet.git
@@ -178,15 +195,8 @@ cd PWLNet
 pip install -e ".[highs,training,dev]"
 ```
 
-Useful extras:
-
-```bash
-pip install -e ".[highs]"          # Pyomo/OMLT plus open-source HiGHS
-pip install -e ".[gurobi]"         # Pyomo/OMLT plus optional licensed Gurobi
-pip install -e ".[mosek]"          # MOSEK Python API for conic/MIQP/MISOCP paths
-pip install -e ".[training,dev]"   # Keras/TensorFlow, pytest, notebooks
-pip install -e ".[parallel]"       # Ray support for parallel SOSX training
-```
+The same extras are available for editable source installs, for example
+`pip install -e ".[mosek]"`.
 
 Gurobi is never required by default. Ipopt is optional for exact tanh NLP
 evaluation; set `PWLNET_IPOPT` or add `ipopt` to `PATH` if you want that path.
@@ -196,7 +206,7 @@ evaluation; set `PWLNET_IPOPT` or add `ipopt` to `PATH` if you want that path.
 ## API Reference
 
 For the complete API and notebook/results reference, see
-[`docs/api_reference.md`](docs/api_reference.md).
+[`docs/api_reference.md`](https://github.com/SunoySanyal/PWLNet/blob/main/docs/api_reference.md).
 
 The public API is available from the package root and from the underlying
 subpackages. The `PWLNet` facade is the easiest entry point; lower-level objects
@@ -648,7 +658,7 @@ pi_net = PWLNet.train_physics_informed(
 ## Workflows
 
 <p align="center">
-  <img src="images/workflows_combined_banner.svg" alt="Combined PWLNet workflow map showing ReLU-MIP, tanh-PWL, SOSX, and physics-informed paths." width="100%">
+  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/workflows_combined_banner.svg" alt="Combined PWLNet workflow map showing ReLU-MIP, tanh-PWL, SOSX, and physics-informed paths." width="100%">
 </p>
 
 The workflow map combines the ReLU-MIP, tanh-PWL, SOSX branch-and-LP, and
@@ -685,7 +695,7 @@ minimize:
 ## Related Tools
 
 <p align="center">
-  <img src="images/tool_stack_banner.svg" alt="PWLNet tool stack banner showing training, modeling, and solver libraries." width="100%">
+  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/tool_stack_banner.svg" alt="PWLNet tool stack banner showing training, modeling, and solver libraries." width="100%">
 </p>
 
 PWLNet is intended to complement existing optimization and machine learning tools such as:
@@ -703,44 +713,29 @@ PWLNet is intended to complement existing optimization and machine learning tool
 
 ## Dependencies
 
-Core numerical, machine-learning, and optimization dependencies:
+The base package installs only these numerical dependencies:
 
 ```
 numpy
 scipy
 pandas
-scikit-learn
-matplotlib
-pyomo
-omlt
-highspy
-tensorflow
-keras
-mosek
 ```
 
-MOSEK is included in the base dependencies because it is required for the
-MSE-based PWL training functionality. However, users do **not** need a MOSEK
-license unless they call the MSE PWL training routines or other
-conic/MIQP/MISOCP-based paths. For these functions, a valid MOSEK license
-should be available at `~/mosek/mosek.lic` or pointed to by the
+Training, optimization, and development dependencies are provided as extras:
+
+| Extra | Dependencies |
+|---|---|
+| `optimization` or `highs` | pyomo, omlt, highspy |
+| `gurobi` | pyomo, omlt, gurobipy |
+| `mosek` | pyomo, mosek |
+| `training` | tensorflow, keras |
+| `parallel` | ray>=2.9, pyomo, highspy |
+| `dev` | matplotlib, pytest, nbformat, nbconvert, jupyter, ipykernel |
+
+MOSEK is optional; install `pwlnet[mosek]` for the MSE-based PWL training
+functionality or other paths that use MOSEK. These routines require a valid
+MOSEK license at `~/mosek/mosek.lic` or pointed to by the
 `MOSEKLM_LICENSE_FILE` environment variable.
-
-Development and notebook dependencies:
-
-```
-pytest
-nbformat
-nbclient
-jupyter
-ipykernel
-```
-
-Optional solver:
-
-```
-gurobipy
-```
 
 Gurobi is not required for the main package. Some notebook examples can use
 Gurobi when available, but the repository is designed to run without it.
@@ -833,4 +828,4 @@ Replace the arXiv identifier after the preprint is posted.
 
 This project is licensed under the **Apache License 2.0**.
 
-See the `LICENSE` file for details.
+See the [LICENSE](https://github.com/SunoySanyal/PWLNet/blob/main/LICENSE) file for details.

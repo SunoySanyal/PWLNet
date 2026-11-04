@@ -30,6 +30,11 @@ dependencies = [
     "pandas",
 ]
 
+[project.urls]
+Repository = "https://github.com/SunoySanyal/PWLNet"
+Documentation = "https://github.com/SunoySanyal/PWLNet/blob/main/docs/api_reference.md"
+Issues = "https://github.com/SunoySanyal/PWLNet/issues"
+
 [project.optional-dependencies]
 optimization = [
     "pyomo",
