@@ -1,0 +1,11 @@
+{
+ "dataset": "hydroformylation_15s_transitions_1230traj_warp_tedge.npz",
+ "rows": 344400,
+ "seed": 2479085,
+ "log_feed": false,
+ "epochs": 300,
+ "ft_epochs": 50,
+ "hidden": [
+  16
+ ]
+}

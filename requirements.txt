@@ -1,0 +1,23 @@
+numpy
+scipy
+pandas
+scikit-learn
+matplotlib
+pyomo
+omlt
+highspy
+tensorflow
+keras
+pytest
+nbformat
+nbclient
+jupyter
+ipykernel
+
+# Optional conic solver (Phase-2 MIQP/MISOCP paths). Needs a license in
+# ~/mosek/mosek.lic or pointed at by MOSEKLM_LICENSE_FILE.
+mosek
+
+# Optional: parallelised SOSX-MAE training (SosxTrainer(parallel=True)).
+# Fans the branch-and-bound node LPs out over a pool of Ray actors.
+ray>=2.9
