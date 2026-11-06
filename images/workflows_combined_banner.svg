@@ -1,0 +1,202 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">PWLNet combined workflow map</title>
+  <desc id="desc">A visual map combining the ReLU-MIP, tanh-PWL, SOSX, and physics-informed workflows.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#020617"/>
+      <stop offset="0.42" stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="edge" x1="90" y1="130" x2="1190" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="0.33" stop-color="#A78BFA"/>
+      <stop offset="0.68" stop-color="#34D399"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </linearGradient>
+
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#1E293B" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#0F172A" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <linearGradient id="relu" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+
+    <linearGradient id="tanh" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+
+    <linearGradient id="sosx" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#34D399"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="physics" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-35%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <filter id="glow" x="-20%" y="-80%" width="140%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      .label { font-family: Inter, Segoe UI, Arial, sans-serif; fill: #F8FAFC; font-weight: 800; }
+      .small { font-family: Inter, Segoe UI, Arial, sans-serif; fill: #CBD5E1; font-size: 13px; }
+      .tiny { font-family: Inter, Segoe UI, Arial, sans-serif; fill: #94A3B8; font-size: 11px; }
+      .nodeText { font-family: Inter, Segoe UI, Arial, sans-serif; fill: #F8FAFC; font-size: 12px; font-weight: 750; }
+      .nodeSub { font-family: Inter, Segoe UI, Arial, sans-serif; fill: #CBD5E1; font-size: 10.5px; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" rx="34" fill="url(#bg)"/>
+
+  <g opacity="0.10">
+    <path d="M0 90H1280 M0 180H1280 M0 270H1280 M0 360H1280 M0 450H1280 M0 540H1280 M0 630H1280" stroke="#CBD5E1"/>
+    <path d="M100 0V720 M220 0V720 M340 0V720 M460 0V720 M580 0V720 M700 0V720 M820 0V720 M940 0V720 M1060 0V720 M1180 0V720" stroke="#CBD5E1"/>
+  </g>
+
+  <path d="M60 626C250 540 290 190 496 205C694 220 688 594 902 566C1075 544 1100 250 1226 164" stroke="url(#edge)" stroke-width="3" opacity="0.22"/>
+  <path d="M74 124C260 204 322 568 514 548C708 528 678 166 900 172C1064 176 1112 474 1218 596" stroke="url(#edge)" stroke-width="3" opacity="0.18"/>
+
+  <text x="640" y="58" text-anchor="middle" class="label" font-size="38">PWLNet Workflow Map</text>
+  <text x="640" y="88" text-anchor="middle" class="small">Four optimization-aware paths from process data to solver-ready decisions</text>
+
+  <g filter="url(#shadow)">
+    <rect x="56" y="122" width="1168" height="536" rx="28" fill="#020617" fill-opacity="0.36" stroke="#334155"/>
+  </g>
+
+  <g opacity="0.98">
+    <rect x="86" y="158" width="172" height="94" rx="20" fill="url(#panel)" stroke="#38BDF8" stroke-opacity="0.55"/>
+    <circle cx="124" cy="190" r="18" fill="#0EA5E9" fill-opacity="0.20" stroke="#38BDF8"/>
+    <ellipse cx="124" cy="184" rx="11" ry="4" stroke="#E0F2FE" stroke-width="1.7"/>
+    <path d="M113 184V201C113 204 118 207 124 207C130 207 135 204 135 201V184" stroke="#E0F2FE" stroke-width="1.7"/>
+    <ellipse cx="124" cy="201" rx="11" ry="4" stroke="#E0F2FE" stroke-width="1.7"/>
+    <text x="170" y="187" text-anchor="middle" class="nodeText">Process Data</text>
+    <text x="170" y="207" text-anchor="middle" class="nodeSub">clean, scale, split</text>
+    <text x="170" y="226" text-anchor="middle" class="nodeSub">states, controls</text>
+
+    <rect x="86" y="306" width="172" height="94" rx="20" fill="url(#panel)" stroke="#A78BFA" stroke-opacity="0.55"/>
+    <circle cx="124" cy="338" r="18" fill="#8B5CF6" fill-opacity="0.20" stroke="#A78BFA"/>
+    <circle cx="116" cy="333" r="3.3" fill="#EDE9FE"/>
+    <circle cx="116" cy="346" r="3.3" fill="#EDE9FE"/>
+    <circle cx="127" cy="339" r="3.3" fill="#EDE9FE"/>
+    <circle cx="138" cy="331" r="3.3" fill="#EDE9FE"/>
+    <circle cx="138" cy="348" r="3.3" fill="#EDE9FE"/>
+    <path d="M119 334L124 338L119 345M130 338L135 333M130 340L135 347" stroke="#EDE9FE" stroke-width="1.3"/>
+    <text x="170" y="335" text-anchor="middle" class="nodeText">Train Surrogate</text>
+    <text x="170" y="355" text-anchor="middle" class="nodeSub">ReLU, tanh, physics</text>
+    <text x="170" y="374" text-anchor="middle" class="nodeSub">compact NN core</text>
+
+    <rect x="86" y="454" width="172" height="94" rx="20" fill="url(#panel)" stroke="#34D399" stroke-opacity="0.55"/>
+    <circle cx="124" cy="486" r="18" fill="#10B981" fill-opacity="0.18" stroke="#34D399"/>
+    <path d="M114 495L122 477L130 490L137 481" stroke="#D1FAE5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M112 500H139" stroke="#D1FAE5" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="170" y="482" text-anchor="middle" class="nodeText">Network Object</text>
+    <text x="170" y="502" text-anchor="middle" class="nodeSub">network core</text>
+    <text x="170" y="521" text-anchor="middle" class="nodeSub">bounds, scalers</text>
+  </g>
+
+  <path d="M270 205H320" stroke="#64748B" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M270 353H320" stroke="#64748B" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M270 501H320" stroke="#64748B" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M312 197L324 205L312 213M312 345L324 353L312 361M312 493L324 501L312 509" stroke="#94A3B8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ReLU-MIP lane -->
+  <g filter="url(#shadow)">
+    <rect x="330" y="132" width="856" height="96" rx="22" fill="url(#panel)" stroke="#38BDF8" stroke-opacity="0.6"/>
+    <rect x="352" y="154" width="112" height="52" rx="16" fill="#082F49" stroke="#38BDF8" stroke-opacity="0.65"/>
+    <text x="408" y="176" text-anchor="middle" class="nodeText">ReLU-MIP</text>
+    <text x="408" y="194" text-anchor="middle" class="nodeSub">workflow</text>
+    <path d="M486 180H586 M718 180H818 M950 180H1050" stroke="url(#relu)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
+    <path d="M578 171L592 180L578 189M810 171L824 180L810 189M1042 171L1056 180L1042 189" stroke="#BAE6FD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="594" y="154" width="116" height="52" rx="15" fill="#0F172A" stroke="#38BDF8" stroke-opacity="0.45"/>
+    <text x="652" y="176" text-anchor="middle" class="nodeText">Prune</text>
+    <text x="652" y="194" text-anchor="middle" class="nodeSub">+ bounds</text>
+    <rect x="826" y="154" width="116" height="52" rx="15" fill="#0F172A" stroke="#38BDF8" stroke-opacity="0.45"/>
+    <text x="884" y="176" text-anchor="middle" class="nodeText">OMLT</text>
+    <text x="884" y="194" text-anchor="middle" class="nodeSub">Pyomo block</text>
+    <rect x="1058" y="154" width="106" height="52" rx="15" fill="#0F172A" stroke="#38BDF8" stroke-opacity="0.45"/>
+    <text x="1111" y="176" text-anchor="middle" class="nodeText">MILP</text>
+    <text x="1111" y="194" text-anchor="middle" class="nodeSub">QP/SOCP</text>
+  </g>
+
+  <!-- tanh-PWL lane -->
+  <g filter="url(#shadow)">
+    <rect x="330" y="254" width="856" height="96" rx="22" fill="url(#panel)" stroke="#A78BFA" stroke-opacity="0.6"/>
+    <rect x="352" y="276" width="112" height="52" rx="16" fill="#312E81" stroke="#A78BFA" stroke-opacity="0.65"/>
+    <text x="408" y="298" text-anchor="middle" class="nodeText">tanh-PWL</text>
+    <text x="408" y="316" text-anchor="middle" class="nodeSub">workflow</text>
+    <path d="M486 302H548 M680 302H742 M874 302H936 M1068 302H1128" stroke="url(#tanh)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
+    <path d="M540 293L554 302L540 311M734 293L748 302L734 311M928 293L942 302L928 311M1120 293L1134 302L1120 311" stroke="#DDD6FE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="556" y="276" width="116" height="52" rx="15" fill="#0F172A" stroke="#A78BFA" stroke-opacity="0.45"/>
+    <text x="614" y="298" text-anchor="middle" class="nodeText">Prune</text>
+    <text x="614" y="316" text-anchor="middle" class="nodeSub">compact tanh</text>
+    <rect x="750" y="276" width="116" height="52" rx="15" fill="#0F172A" stroke="#A78BFA" stroke-opacity="0.45"/>
+    <text x="808" y="298" text-anchor="middle" class="nodeText">PWL tanh</text>
+    <text x="808" y="316" text-anchor="middle" class="nodeSub">breakpoints</text>
+    <rect x="944" y="276" width="116" height="52" rx="15" fill="#0F172A" stroke="#A78BFA" stroke-opacity="0.45"/>
+    <text x="1002" y="298" text-anchor="middle" class="nodeText">big-M/SOS2</text>
+    <text x="1002" y="316" text-anchor="middle" class="nodeSub">SOSX option</text>
+    <rect x="1136" y="276" width="34" height="52" rx="14" fill="#0F172A" stroke="#A78BFA" stroke-opacity="0.45"/>
+    <text x="1153" y="307" text-anchor="middle" class="nodeText">Opt</text>
+  </g>
+
+  <!-- SOSX lane -->
+  <g filter="url(#shadow)">
+    <rect x="330" y="376" width="856" height="96" rx="22" fill="url(#panel)" stroke="#34D399" stroke-opacity="0.6"/>
+    <rect x="352" y="398" width="112" height="52" rx="16" fill="#064E3B" stroke="#34D399" stroke-opacity="0.65"/>
+    <text x="408" y="420" text-anchor="middle" class="nodeText">SOSX</text>
+    <text x="408" y="438" text-anchor="middle" class="nodeSub">branch + LP</text>
+    <path d="M486 424H548 M680 424H742 M874 424H936 M1068 424H1128" stroke="url(#sosx)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
+    <path d="M540 415L554 424L540 433M734 415L748 424L734 433M928 415L942 424L928 433M1120 415L1134 424L1120 433" stroke="#BBF7D0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="556" y="398" width="116" height="52" rx="15" fill="#0F172A" stroke="#34D399" stroke-opacity="0.45"/>
+    <text x="614" y="420" text-anchor="middle" class="nodeText">Pyomo</text>
+    <text x="614" y="438" text-anchor="middle" class="nodeSub">SOS2 blocks</text>
+    <rect x="750" y="398" width="116" height="52" rx="15" fill="#0F172A" stroke="#34D399" stroke-opacity="0.45"/>
+    <text x="808" y="420" text-anchor="middle" class="nodeText">Relax</text>
+    <text x="808" y="438" text-anchor="middle" class="nodeSub">drop SOS2</text>
+    <rect x="944" y="398" width="116" height="52" rx="15" fill="#0F172A" stroke="#34D399" stroke-opacity="0.45"/>
+    <text x="1002" y="420" text-anchor="middle" class="nodeText">Branch</text>
+    <text x="1002" y="438" text-anchor="middle" class="nodeSub">lambda window</text>
+    <rect x="1136" y="398" width="34" height="52" rx="14" fill="#0F172A" stroke="#34D399" stroke-opacity="0.45"/>
+    <text x="1153" y="429" text-anchor="middle" class="nodeText">Gap</text>
+  </g>
+
+  <!-- Physics-informed lane -->
+  <g filter="url(#shadow)">
+    <rect x="330" y="498" width="856" height="96" rx="22" fill="url(#panel)" stroke="#FBBF24" stroke-opacity="0.6"/>
+    <rect x="352" y="520" width="112" height="52" rx="16" fill="#78350F" stroke="#FBBF24" stroke-opacity="0.65"/>
+    <text x="408" y="542" text-anchor="middle" class="nodeText">Physics</text>
+    <text x="408" y="560" text-anchor="middle" class="nodeSub">informed</text>
+    <path d="M486 546H586 M718 546H818 M950 546H1050" stroke="url(#physics)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
+    <path d="M578 537L592 546L578 555M810 537L824 546L810 555M1042 537L1056 546L1042 555" stroke="#FEF3C7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="594" y="520" width="116" height="52" rx="15" fill="#0F172A" stroke="#FBBF24" stroke-opacity="0.45"/>
+    <text x="652" y="542" text-anchor="middle" class="nodeText">Data loss</text>
+    <text x="652" y="560" text-anchor="middle" class="nodeSub">+ physics</text>
+    <rect x="826" y="520" width="116" height="52" rx="15" fill="#0F172A" stroke="#FBBF24" stroke-opacity="0.45"/>
+    <text x="884" y="542" text-anchor="middle" class="nodeText">Multiobj.</text>
+    <text x="884" y="560" text-anchor="middle" class="nodeSub">regularized</text>
+    <rect x="1058" y="520" width="106" height="52" rx="15" fill="#0F172A" stroke="#FBBF24" stroke-opacity="0.45"/>
+    <text x="1111" y="542" text-anchor="middle" class="nodeText">Surrogate</text>
+    <text x="1111" y="560" text-anchor="middle" class="nodeSub">ready to embed</text>
+  </g>
+
+  <g opacity="0.96">
+    <rect x="260" y="620" width="760" height="34" rx="17" fill="#020617" fill-opacity="0.72" stroke="#334155"/>
+    <text x="640" y="642" text-anchor="middle" class="small">Shared output: optimization-compatible neural surrogate and process decision model</text>
+  </g>
+</svg>

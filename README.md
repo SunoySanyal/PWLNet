@@ -7,7 +7,7 @@ Pyomo/PWL backends, and validates the resulting decisions on Williams-Otto and
 hydroformylation benchmark processes.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/workflow_banner.svg" alt="PWLNet workflow banner" width="100%">
+  <img src="images/workflow_banner.svg" alt="PWLNet workflow banner" width="100%">
 </p>
 
 ## Why PWLNet?
@@ -36,7 +36,7 @@ Most ML pipelines stop at prediction. **PWLNet goes one step further:** it turns
 ## What It Shows
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/03_williams_otto_tanh_pwl_milp_img08_cell26.png" alt="Williams-Otto constrained optimization landscape." width="720">
+  <img src="images/03_williams_otto_tanh_pwl_milp_img08_cell26.png" alt="Williams-Otto constrained optimization landscape." width="720">
 </p>
 
 <p align="center">
@@ -46,7 +46,7 @@ Most ML pipelines stop at prediction. **PWLNet goes one step further:** it turns
 ## Optimization-Aware Compression
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/05_williams_otto_relu_pruning_img01_cell14.png" alt="Before and after network pruning." width="720">
+  <img src="images/05_williams_otto_relu_pruning_img01_cell14.png" alt="Before and after network pruning." width="720">
 </p>
 
 <p align="center">
@@ -54,7 +54,7 @@ Most ML pipelines stop at prediction. **PWLNet goes one step further:** it turns
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/03_williams_otto_tanh_pwl_milp_img01_cell3.png" alt="Piecewise-linear approximation of tanh activation function" width="720">
+  <img src="images/03_williams_otto_tanh_pwl_milp_img01_cell3.png" alt="Piecewise-linear approximation of tanh activation function" width="720">
 </p>
 
 <p align="center">
@@ -658,7 +658,7 @@ pi_net = PWLNet.train_physics_informed(
 ## Workflows
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/workflows_combined_banner.svg" alt="Combined PWLNet workflow map showing ReLU-MIP, tanh-PWL, SOSX, and physics-informed paths." width="100%">
+  <img src="images/workflows_combined_banner.svg" alt="Combined PWLNet workflow map showing ReLU-MIP, tanh-PWL, SOSX, and physics-informed paths." width="100%">
 </p>
 
 The workflow map combines the ReLU-MIP, tanh-PWL, SOSX branch-and-LP, and
@@ -695,7 +695,7 @@ minimize:
 ## Related Tools
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SunoySanyal/PWLNet/main/images/tool_stack_banner.svg" alt="PWLNet tool stack banner showing training, modeling, and solver libraries." width="100%">
+  <img src="images/tool_stack_banner.svg" alt="PWLNet tool stack banner showing training, modeling, and solver libraries." width="100%">
 </p>
 
 PWLNet is intended to complement existing optimization and machine learning tools such as:
