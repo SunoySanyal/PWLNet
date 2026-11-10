@@ -9,9 +9,12 @@ process-specific NMPC benchmarks.
 
 This reference describes the public Python API and the notebooks in the current
 repository. The package version in `pyproject.toml` and `pwlnet.__version__` is
-`0.1.0`.
+`0.1.1`.
 
 ## Installation Extras
+
+Pyomo and OMLT are included in the base installation, along with NumPy, SciPy,
+and pandas. Add solver, training, and development support through extras.
 
 Install the local checkout with the extras needed for the workflow:
 
@@ -23,7 +26,7 @@ Useful extras:
 
 | Extra | Purpose |
 |---|---|
-| `highs` | Pyomo, OMLT, and open-source HiGHS solver support |
+| `optimization` or `highs` | Open-source HiGHS solver support |
 | `gurobi` | Optional licensed Gurobi interfaces |
 | `mosek` | Optional MOSEK API for conic, MIQP, and MISOCP paths |
 | `training` | TensorFlow/Keras training support |

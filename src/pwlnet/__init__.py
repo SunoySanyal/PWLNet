@@ -5,7 +5,7 @@ optimization models via OMLT, custom Pyomo piecewise-linear formulations,
 and a SOSX branching engine.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 from pwlnet.api import PWLNet
 from pwlnet.benchmarking import metrics_table, regression_metrics

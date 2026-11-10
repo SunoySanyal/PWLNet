@@ -770,23 +770,25 @@ PWLNet is intended to complement existing optimization and machine learning tool
 
 ## Dependencies
 
-The base package installs only these numerical dependencies:
+The base package installs these numerical and optimization modeling dependencies:
 
 ```
 numpy
 scipy
 pandas
+pyomo
+omlt
 ```
 
-Training, optimization, and development dependencies are provided as extras:
+Training, solver, parallel processing, and development dependencies are provided as extras:
 
 | Extra | Dependencies |
 |---|---|
-| `optimization` or `highs` | pyomo, omlt, highspy |
-| `gurobi` | pyomo, omlt, gurobipy |
-| `mosek` | pyomo, mosek |
+| `optimization` or `highs` | highspy |
+| `gurobi` | gurobipy |
+| `mosek` | mosek |
 | `training` | tensorflow, keras |
-| `parallel` | ray>=2.9, pyomo, highspy |
+| `parallel` | ray>=2.9, highspy |
 | `dev` | matplotlib, pytest, nbformat, nbconvert, jupyter, ipykernel |
 
 MOSEK is optional; install `pwlnet[mosek]` for the MSE-based PWL training

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pwlnet"
-version = "0.1.0"
+version = "0.1.1"
 description = "Optimization-aware neural network surrogates: training, pruning, and Pyomo/OMLT/SOSX formulations."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -28,6 +28,8 @@ dependencies = [
     "numpy",
     "scipy",
     "pandas",
+    "pyomo",
+    "omlt",
 ]
 
 [project.urls]
@@ -37,22 +39,15 @@ Issues = "https://github.com/SunoySanyal/PWLNet/issues"
 
 [project.optional-dependencies]
 optimization = [
-    "pyomo",
-    "omlt",
     "highspy",
 ]
 highs = [
-    "pyomo",
-    "omlt",
     "highspy",
 ]
 gurobi = [
-    "pyomo",
-    "omlt",
     "gurobipy",
 ]
 mosek = [
-    "pyomo",
     "mosek",
 ]
 training = [
@@ -61,7 +56,6 @@ training = [
 ]
 parallel = [
     "ray>=2.9",
-    "pyomo",
     "highspy",
 ]
 dev = [
