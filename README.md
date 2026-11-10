@@ -3,8 +3,8 @@
 PWLNet is a Python research library for optimization-aware neural surrogates in
 process systems engineering. It trains compact ReLU and tanh models, prunes
 them for tractable optimization, reformulates them through OMLT or custom
-Pyomo/PWL backends, and validates the resulting decisions on Williams-Otto and
-hydroformylation benchmark processes.
+Pyomo/PWL backends, and validates the resulting decisions on Williams-Otto,
+hydroformylation, and Van de Vusse benchmark processes.
 
 <p align="center">
   <img src="images/workflow_banner.svg" alt="PWLNet workflow banner" width="100%">
@@ -31,7 +31,7 @@ Most ML pipelines stop at prediction. **PWLNet goes one step further:** it turns
 | **Simplify** | pruning + compact models | smaller formulations |
 | **Reformulate** | OMLT / Pyomo-PWL / SOSX / exact NLP | solver-ready model |
 | **Solve** | HiGHS / Ipopt / Gurobi / MOSEK | LP / MILP / SOCP / NLP |
-| **Validate** | Williams-Otto / hydroformylation | decision quality |
+| **Validate** | Williams-Otto / hydroformylation / Van de Vusse | decision quality |
 
 ## What It Shows
 
@@ -76,8 +76,9 @@ PWLNet supports:
 - Piecewise-linear tanh formulations using big-M, SOS2, and custom SOSX-style branching
 - Optimization-aware neural network pruning and compression
 - Physics-informed and multiobjective training
-- Williams-Otto and hydroformylation process benchmarks
+- Williams-Otto, hydroformylation, and Van de Vusse process benchmarks
 - SOSX-MAE training for bounded, fixed-readout, single-hidden-layer PWL-tanh networks
+- Physics-informed ReLU-RNN surrogates unrolled into receding-horizon MPC MILPs
 
 ---
 
@@ -92,6 +93,7 @@ PWLNet supports:
 | tanh | Piecewise-linear SOS2 | Pyomo | MILP / MIQP / MISOCP |
 | tanh | SOSX-style PWL embedding | Custom brancher | Branch-and-LP / branch-and-MILP |
 | tanh | SOSX-style MAE training | Custom brancher | Branch-and-LP |
+| ReLU RNN | Unrolled recurrent cell, one big-M block per step | OMLT / Pyomo | MILP |
 
 ---
 
@@ -112,6 +114,13 @@ Packaged process modules:
    - delayed-measurement policy simulation
    - PWL-NMPC helper functions for shrinking-horizon and receding-horizon control
 
+3. `pwlnet.processes.van_de_vusse`
+   - isothermal Van de Vusse CSTR (`A -> B -> C`, `2A -> D`) with dilution-rate control
+   - steady-state simulation, step responses, and transition dataset generation
+   - direct-shooting optimal control reference solutions
+   - receding-horizon and multiple-shooting NMPC helpers
+   - the Sahlodin (2015) nonisothermal variant in `pwlnet.processes.van_de_vusse.sahlodin2015`
+
 These benchmarks are used to evaluate prediction accuracy, optimization
 tractability, physics consistency, downstream optimization value, and robustness
 under changing process dynamics.
@@ -130,6 +139,19 @@ under changing process dynamics.
 | `08_williams_otto_sosx_branch_and_lp.ipynb` | Demonstrate SOSX branch-and-LP optimization for a Williams-Otto tanh/PWL surrogate. |
 | `09_hydroformylation_sosx_shrinking_horizon.ipynb` | Apply the generic `solve_sosx(model, ...)` API to shrinking-horizon hydroformylation NMPC. |
 | `10_williams_otto_sosx_input_noise_stress_test.ipynb` | Stress-test Williams-Otto SOSX optimization under input noise and perturbed operating conditions. |
+| `11_van_de_vusse_nmpc_pwl_control.ipynb` | Train a horizon-aware Van de Vusse output surrogate and run shrinking-horizon receding control. |
+| `12_van_de_vusse_relu_rnn_mpc.ipynb` | Train, prune, and bound-tighten a physics-informed ReLU-RNN, then unroll it into an MPC MILP. |
+| `13_boston_housing_surrogate_optimization.ipynb` | Compare tanh, PWL-tanh, and SOSX-MAE surrogates on Boston Housing and optimize over them under constraints. |
+| `14_van_de_vusse_nmpc_pwl_control_studies.ipynb` | Extend notebook 11 with global vs. local training studies and plant/model mismatch tests. |
+
+> **Notebook 09 needs a generated dataset.** Its 1230-trajectory hydroformylation training
+> set (~50 MB) is not shipped with the package or tracked in git. Build it once from the
+> repository root. It takes about 5 min on 10 cores and about 45 min on one, and the output
+> is bit-identical to the original data:
+>
+> ```bash
+> python scripts/generate_hydroformylation_datasets.py
+> ```
 
 ---
 
@@ -137,16 +159,21 @@ under changing process dynamics.
 
 ```text
 PWLNet/
+|-- .github/
+|   `-- workflows/
+|-- LICENSE
 |-- README.md
+|-- pyproject.toml
 |-- requirements.txt
-|-- images/
+|-- datasets/
 |-- docs/
-|-- examples/
+|-- images/
 |-- notebooks/
-|-- tests/
+|-- scripts/          # one-off data generation (not part of the pip package)
 `-- src/
     `-- pwlnet/
         |-- api.py
+        |-- config.py
         |-- core/
         |-- data/
         |-- training/
@@ -159,9 +186,11 @@ PWLNet/
         |-- embedding/
         |-- multiobjective/
         |-- benchmarking/
+        |-- recurrent/
         |-- processes/
         |   |-- williams_otto/
-        |   `-- hydroformylation/
+        |   |-- hydroformylation/
+        |   `-- van_de_vusse/
         `-- utils/
 ```
 
@@ -477,7 +506,33 @@ from pwlnet.processes.hydroformylation import (
     solve_receding_move,
     tighten_network_bounds,
 )
+
+from pwlnet.processes.van_de_vusse import (
+    VanDeVusseParameters,
+    make_transition_dataset,
+    simulate_policy,
+    solve_direct_shooting_optimal_control,
+    run_receding_horizon_nmpc,
+)
 ```
+
+### Recurrent ReLU-RNN Surrogates
+
+A vanilla Elman cell with a ReLU activation is piecewise linear, so a trained
+recurrent model can be pruned, bound-tightened across the horizon, and unrolled
+into an MPC MILP with one `relu_bigm` block per step.
+
+```python
+from pwlnet import RNNTrainer
+from pwlnet.recurrent import (
+    RecurrentCell,
+    propagate_recurrent_bounds,
+    build_unrolled_mpc_model,
+    solve_unrolled_mpc,
+)
+```
+
+Notebook 12 walks through the full workflow on the Van de Vusse CSTR.
 
 ---
 
@@ -624,16 +679,18 @@ net = PWLNet.train(
     loss="mse",
 )
 
-net.prune(
+net = net.prune(
     method="neuron_magnitude",
-    threshold=1e-4,
+    fraction=0.25,
     fine_tune=True,
+    X=X_train,
+    y=y_train,
 )
 
-block = net.to_pyomo(
+model, block = net.to_pyomo(
+    backend="pyomo_pwl",
     formulation="tanh_pwl_sos2",
     breakpoints=[-4, -2, -1, 1, 2, 4],
-    objective="mse_socp",
 )
 ```
 
@@ -742,11 +799,10 @@ Gurobi when available, but the repository is designed to run without it.
 
 ## Citing this work
 
-If you use this repository in your work, please cite the forthcoming arXiv preprint and the relevant papers associated with the methods implemented in the library. These publications provide further details on the underlying algorithms, formulations, and related work included in the repository.
+If you use this repository in your work, please cite the forthcoming arXiv preprint and the relevant papers associated with the methods implemented in the library. These publications provide further details on the underlying algorithms, formulations, and related work included in the repository. You can find the relevant papers used in this library in the references section below.
 
-> PWLNet authors. (2026). *PWLNet: Piecewise-linear neural-network surrogates for optimization*. arXiv preprint, arXiv.XXXXX. Forthcoming.
+> Sanyal, S., Demir, C., Türkay, M. Aydın, E. (2026). *PWLNet: Piecewise-linear neural-network surrogates for optimization*. arXiv preprint, arXiv.XXXXX. Forthcoming.
 
-Replace the arXiv identifier after the preprint is posted.
 
 ## References
 

@@ -225,10 +225,12 @@ papers/
 # Locally downloaded solver binaries (e.g. Ipopt from COIN-OR releases)
 .tools/
 
-# large generated 15 s datasets: rebuild with
-#   python experiments/hydroformylation/build_15s_dataset_parallel.py
-# datasets/hydroformylation_15s_transitions_*traj*.npz
-# large generated 15 s datasets. The bare builder command does NOT reproduce nb09's
-# 1230traj_warp_tedge set; see "Rebuilding the nb09 training set" in
-# experiments/hydroformylation/README.md for the two-stage recipe and what is unrecorded.
-# datasets/hydroformylation_15s_transitions_*traj*.npz
+# Large generated hydroformylation 15 s datasets (25-50 MB each). Rebuild the
+# ones notebook 09 needs, bit-identically, with
+#   python scripts/generate_hydroformylation_datasets.py
+# The small 30-trajectory base file (hydroformylation_15s_transitions.npz) stays tracked.
+datasets/hydroformylation_15s_transitions_*traj*.npz
+
+# Emacs lock and autosave files
+.#*
+\#*\#
