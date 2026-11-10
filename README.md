@@ -799,11 +799,10 @@ Gurobi when available, but the repository is designed to run without it.
 
 ## Citing this work
 
-If you use this repository in your work, please cite the forthcoming arXiv preprint and the relevant papers associated with the methods implemented in the library. These publications provide further details on the underlying algorithms, formulations, and related work included in the repository.
+If you use this repository in your work, please cite the forthcoming arXiv preprint and the relevant papers associated with the methods implemented in the library. These publications provide further details on the underlying algorithms, formulations, and related work included in the repository. You can find the relevant papers used in this library in the references section below.
 
-> PWLNet authors. (2026). *PWLNet: Piecewise-linear neural-network surrogates for optimization*. arXiv preprint, arXiv.XXXXX. Forthcoming.
+> Sanyal, S., Demir, C., Türkay, M. Aydın, E. (2026). *PWLNet: Piecewise-linear neural-network surrogates for optimization*. arXiv preprint, arXiv.XXXXX. Forthcoming.
 
-Replace the arXiv identifier after the preprint is posted.
 
 ## References
 
